@@ -1,5 +1,5 @@
 //
-//  Interactor.swift
+//  ProfileInteractor.swift
 //  viewstate
 //
 //  Created by Christopher Trott on 8/7/17.
@@ -54,4 +54,3 @@ struct ProfileViewModelReducer {
         }
     }
 }
-
