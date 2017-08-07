@@ -15,13 +15,13 @@ final class ProfileInteractor {
         case load
     }
     
-    enum OutputAction { }
+    enum Effect { }
     
     let commandSink: Signal<Command, NoError>.Observer
     private let commandSignal: Signal<Command, NoError>
     
     let viewModel: Property<ProfileViewModel>
-    let action: Signal<OutputAction, NoError>
+    let effect: Signal<Effect, NoError>
     
     let userId: Int
     let service: ProfileServiceType
@@ -51,10 +51,10 @@ final class ProfileInteractor {
             .skipRepeats()
             .observe(on: scheduler.output)
         
-        let actionSignal = stateReducer
+        let effectSignal = stateReducer
             .map { $0.effect }
             .skipNil()
-            .map(ProfileInteractor.toOutputAction)
+            .map(ProfileInteractor.toEffect)
             .skipNil()
             .observe(on: scheduler.output)
         
@@ -68,7 +68,7 @@ final class ProfileInteractor {
             .observe(internalCommandSink)
         
         viewModel = Property(initial: initialViewModel, then: viewModelSignal)
-        action = actionSignal
+        effect = effectSignal
     }
     
     static func toCommand(_ command: Command) -> Reducer.Command {
@@ -77,7 +77,7 @@ final class ProfileInteractor {
         }
     }
     
-    static func toOutputAction(_ effect: Reducer.Effect) -> OutputAction? {
+    static func toEffect(_ effect: Reducer.Effect) -> Effect? {
         return nil
     }
     
