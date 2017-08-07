@@ -10,57 +10,40 @@ import Foundation
 import ReactiveSwift
 import Result
 
-protocol ProfileServiceType {
-    func readProfile(userId: Int) -> SignalProducer<User, NSError>
-}
-
-struct SchedulerContext {
-    let state: Scheduler
-    let work: Scheduler
-    let output: Scheduler
-}
-
-extension SchedulerContext {
-    static func interactor() -> SchedulerContext {
-        return SchedulerContext(state: QueueScheduler(), work: QueueScheduler(), output: UIScheduler())
+final class ProfileInteractor {
+    enum Command {
+        case load
     }
-}
-
-class ProfileInteractor {
+    
     enum OutputAction { }
     
-    let loadSink: Signal<Void, NoError>.Observer
-    private let loadSignal: Signal<Void, NoError>
+    let commandSink: Signal<Command, NoError>.Observer
+    private let commandSignal: Signal<Command, NoError>
     
     let viewModel: Property<ProfileViewModel>
     let action: Signal<OutputAction, NoError>
     
-    private let stateScheduler = QueueScheduler()
-    private let workScheduler = QueueScheduler()
-    private let outputScheduler = UIScheduler()
-
     let userId: Int
     let service: ProfileServiceType
     
-    init(userId: Int, service: ProfileServiceType, scheduler: SchedulerContext = SchedulerContext.interactor()) {
+    init(userId: Int, service: ProfileServiceType, scheduler: SchedulerContext = SchedulerContext()) {
         self.userId = userId
         self.service = service
         
-        (self.loadSignal, self.loadSink) = Signal<Void, NoError>.pipe()
+        (self.commandSignal, self.commandSink) = Signal<Command, NoError>.pipe()
         
         let initialViewModel = ProfileViewModel(state: .initialized)
-        let initialEffect: ProfileViewModelReducer.Effect? = nil
-        let initialState = ProfileViewModelReducer.State(viewModel: initialViewModel, effect: initialEffect)
+        let initialEffect: Reducer.Effect? = nil
+        let initialState = Reducer.State(viewModel: initialViewModel, effect: initialEffect)
         
-        let loadCommand = loadSignal.map { _ in ProfileViewModelReducer.Command.load }
-        let (internalCommandSignal, internalCommandSink) = Signal<ProfileViewModelReducer.Command, NoError>.pipe()
+        let externalCommandSignal = commandSignal.map(ProfileInteractor.toCommand)
+        let (internalCommandSignal, internalCommandSink) = Signal<Reducer.Command, NoError>.pipe()
+        let allCommandsSignal = Signal.merge([externalCommandSignal, internalCommandSignal])
         
-        let allCommands = Signal.merge([loadCommand, internalCommandSignal])
-        
-        let stateReducer = allCommands
+        let stateReducer = allCommandsSignal
             .observe(on: scheduler.state)
-            .scan(initialState) { (state: ProfileViewModelReducer.State, command: ProfileViewModelReducer.Command) -> ProfileViewModelReducer.State in
-                return ProfileViewModelReducer.reduce(state: state, command: command)
+            .scan(initialState) { (state: Reducer.State, command: Reducer.Command) -> Reducer.State in
+                return Reducer.reduce(state: state, command: command)
             }
         
         let viewModelSignal = stateReducer
@@ -79,8 +62,8 @@ class ProfileInteractor {
             .observe(on: scheduler.work)
             .map { $0.effect }
             .skipNil()
-            .flatMap(FlattenStrategy.merge) { (effect: ProfileViewModelReducer.Effect) -> SignalProducer<ProfileViewModelReducer.Command, NoError> in
-                return ProfileInteractor.toSignalProduer(effect: effect, userId: userId, service: service)
+            .flatMap(FlattenStrategy.merge) { (effect: Reducer.Effect) -> SignalProducer<Reducer.Command, NoError> in
+                return ProfileInteractor.toSignalProducer(effect: effect, userId: userId, service: service)
             }
             .observe(internalCommandSink)
         
@@ -88,67 +71,75 @@ class ProfileInteractor {
         action = actionSignal
     }
     
-    static func toOutputAction(_ effect: ProfileViewModelReducer.Effect) -> OutputAction? {
+    static func toCommand(_ command: Command) -> Reducer.Command {
+        switch command {
+        case .load: return .load
+        }
+    }
+    
+    static func toOutputAction(_ effect: Reducer.Effect) -> OutputAction? {
         return nil
     }
     
-    static func toSignalProduer(effect: ProfileViewModelReducer.Effect, userId: Int, service: ProfileServiceType) -> SignalProducer<ProfileViewModelReducer.Command, NoError> {
+    static func toSignalProducer(effect: Reducer.Effect, userId: Int, service: ProfileServiceType) -> SignalProducer<Reducer.Command, NoError> {
         switch effect {
         case .load:
             return service.readProfile(userId: userId)
-                .map { (user: User) -> ProfileViewModelReducer.Command in
-                    return ProfileViewModelReducer.Command.loaded(user)
+                .map { (user: User) -> Reducer.Command in
+                    return Reducer.Command.loaded(user)
                 }
-                .flatMapError { (error: NSError) -> SignalProducer<ProfileViewModelReducer.Command, NoError> in
-                    return SignalProducer(value: ProfileViewModelReducer.Command.failed(error))
+                .flatMapError { (error: NSError) -> SignalProducer<Reducer.Command, NoError> in
+                    return SignalProducer(value: Reducer.Command.failed(error))
                 }
         }
     }
 }
 
-struct ProfileViewModelReducer {
-    enum Command {
-        case load
-        case loaded(User)
-        case failed(Error)
-    }
-    
-    enum Effect {
-        case load
-    }
-    
-    struct State {
-        let viewModel: ProfileViewModel
-        let effect: Effect?
-    }
-    
-    static func reduce(state: State, command: Command) -> State {
-        let viewModel: ProfileViewModel = state.viewModel
-        let _: Effect? = state.effect
-        let viewModelState: ProfileViewModel.State = viewModel.state
-        let noChange = State(viewModel: viewModel, effect: nil)
+extension ProfileInteractor {
+    struct Reducer {
+        enum Command {
+            case load
+            case loaded(User)
+            case failed(Error)
+        }
         
-        switch (command, viewModelState) {
+        enum Effect {
+            case load
+        }
+        
+        struct State {
+            let viewModel: ProfileViewModel
+            let effect: Effect?
+        }
+        
+        static func reduce(state: State, command: Command) -> State {
+            let viewModel: ProfileViewModel = state.viewModel
+            let _: Effect? = state.effect
+            let viewModelState: ProfileViewModel.State = viewModel.state
+            let noChange = State(viewModel: viewModel, effect: nil)
             
-        case (.load, .initialized),
-             (.load, .loaded),
-             (.load, .failed):
-            return State(viewModel: ProfileViewModel(state: .loading), effect: .load)
-            
-        case (.load, .loading):
-            return noChange // ignore `.load` messages if we're already in a loading state.
-            
-        case (.loaded(let user), .loading):
-            return State(viewModel: ProfileViewModel(state: .loaded(user)), effect: nil)
-            
-        case (.loaded, _):
-            return noChange // `.loaded` command can not be handled from any other view state besides `.loading`.
-            
-        case (.failed(let error), .loading):
-            return State(viewModel: ProfileViewModel(state: .failed(error)), effect: nil)
-            
-        case (.failed, _):
-            return noChange // `.failed` command can not be handled from any other view state besides `.loading`.
+            switch (command, viewModelState) {
+                
+            case (.load, .initialized),
+                 (.load, .loaded),
+                 (.load, .failed):
+                return State(viewModel: ProfileViewModel(state: .loading), effect: .load)
+                
+            case (.load, .loading):
+                return noChange // ignore `.load` messages if we're already in a loading state.
+                
+            case (.loaded(let user), .loading):
+                return State(viewModel: ProfileViewModel(state: .loaded(user)), effect: nil)
+                
+            case (.loaded, _):
+                return noChange // `.loaded` command can not be handled from any other view state besides `.loading`.
+                
+            case (.failed(let error), .loading):
+                return State(viewModel: ProfileViewModel(state: .failed(error)), effect: nil)
+                
+            case (.failed, _):
+                return noChange // `.failed` command can not be handled from any other view state besides `.loading`.
+            }
         }
     }
 }
