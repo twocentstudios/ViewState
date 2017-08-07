@@ -49,5 +49,26 @@ struct LoadingTextViewModel {
     }
 }
 
+extension ErrorViewModel: Equatable {
+    static func == (lhs: ErrorViewModel, rhs: ErrorViewModel) -> Bool {
+        return lhs.message == rhs.message &&
+            lhs.actionTitle == rhs.actionTitle
+    }
+}
 
+extension LoadingTextViewModel: Equatable {
+    static func == (lhs: LoadingTextViewModel, rhs: LoadingTextViewModel) -> Bool {
+        return lhs.state == rhs.state
+    }
+}
 
+extension LoadingTextViewModel.State: Equatable {
+    static func == (lhs: LoadingTextViewModel.State, rhs: LoadingTextViewModel.State) -> Bool {
+        switch (lhs, rhs) {
+        case (.initialized, .initialized): return true
+        case (.loading, .loading): return true
+        case let (.loaded(l), .loaded(r)): return l == r
+        default: return false
+        }
+    }
+}

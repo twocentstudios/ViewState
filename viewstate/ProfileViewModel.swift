@@ -85,3 +85,36 @@ struct ProfileViewModel {
         }
     }
 }
+
+extension ProfileHeaderViewModel: Equatable {
+    static func == (lhs: ProfileHeaderViewModel, rhs: ProfileHeaderViewModel) -> Bool {
+        return lhs.avatarURL == rhs.avatarURL &&
+            lhs.friendsCount == rhs.friendsCount &&
+            lhs.username == rhs.username
+    }
+}
+
+extension ProfileAttributeViewModel: Equatable {
+    static func == (lhs: ProfileAttributeViewModel, rhs: ProfileAttributeViewModel) -> Bool {
+        return lhs.name == rhs.name &&
+            lhs.value == rhs.value
+    }
+}
+
+extension ProfileViewModel: Equatable {
+    static func == (lhs: ProfileViewModel, rhs: ProfileViewModel) -> Bool {
+        return lhs.state == rhs.state
+    }
+}
+
+extension ProfileViewModel.State: Equatable {
+    static func == (lhs: ProfileViewModel.State, rhs: ProfileViewModel.State) -> Bool {
+        switch (lhs, rhs) {
+        case (.initialized, .initialized): return true
+        case (.loading, .loading): return true
+        case let (.loaded(l), .loaded(r)): return l == r
+        case let (.failed(l), .failed(r)): return l.localizedDescription == r.localizedDescription
+        default: return false
+        }
+    }
+}

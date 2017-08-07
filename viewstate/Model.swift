@@ -23,8 +23,21 @@ struct Post {
     let body: String
 }
 
-struct Photo {
-    let id: Int
-    let date: Date
-    let url: URL
+extension User: Equatable {
+    static func == (lhs: User, rhs: User) -> Bool {
+        return lhs.id == rhs.id &&
+            lhs.avatarURL == rhs.avatarURL &&
+            lhs.username == rhs.username &&
+            lhs.friendsCount == rhs.friendsCount &&
+            lhs.location == rhs.location &&
+            lhs.website == rhs.website
+    }
+}
+
+extension Post: Equatable {
+    static func == (lhs: Post, rhs: Post) -> Bool {
+        return lhs.id == rhs.id &&
+            lhs.date == rhs.date &&
+            lhs.body == rhs.body
+    }
 }

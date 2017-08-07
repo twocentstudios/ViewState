@@ -62,3 +62,28 @@ struct PostsViewModel {
         }
     }
 }
+
+extension PostViewModel: Equatable {
+    static func == (lhs: PostViewModel, rhs: PostViewModel) -> Bool {
+        return lhs.date == rhs.date &&
+            lhs.body == rhs.body
+    }
+}
+
+extension PostsViewModel: Equatable {
+    static func == (lhs: PostsViewModel, rhs: PostsViewModel) -> Bool {
+        return lhs.state == rhs.state
+    }
+}
+
+extension PostsViewModel.State: Equatable {
+    static func == (lhs: PostsViewModel.State, rhs: PostsViewModel.State) -> Bool {
+        switch (lhs, rhs) {
+        case (.initialized, .initialized): return true
+        case (.loading, .loading): return true
+        case let (.loaded(l), .loaded(r)): return l == r
+        case let (.failed(l), .failed(r)): return l.localizedDescription == r.localizedDescription
+        default: return false
+        }
+    }
+}

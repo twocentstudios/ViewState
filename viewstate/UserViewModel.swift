@@ -63,3 +63,9 @@ struct UserViewModel {
     }
 }
 
+extension UserViewModel: Equatable {
+    static func == (lhs: UserViewModel, rhs: UserViewModel) -> Bool {
+        return lhs.profileViewModel == rhs.profileViewModel &&
+            lhs.postsViewModel == rhs.postsViewModel
+    }
+}

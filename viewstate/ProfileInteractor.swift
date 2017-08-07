@@ -48,7 +48,7 @@ final class ProfileInteractor {
         
         let viewModelSignal = stateReducer
             .map { $0.viewModel }
-            // .skipRepeats()  // TODO: equatable definitions
+            .skipRepeats()
             .observe(on: scheduler.output)
         
         let actionSignal = stateReducer
