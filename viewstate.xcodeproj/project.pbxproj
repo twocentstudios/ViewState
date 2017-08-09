@@ -19,6 +19,7 @@
 		3477654E1F38468E00B6B4F1 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3477654D1F38468E00B6B4F1 /* ProfileService.swift */; };
 		347765501F3846C300B6B4F1 /* SchedulerContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3477654F1F3846C300B6B4F1 /* SchedulerContext.swift */; };
 		347765521F3AB78800B6B4F1 /* PostsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347765511F3AB78800B6B4F1 /* PostsService.swift */; };
+		347765541F3AC1E200B6B4F1 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347765531F3AC1E200B6B4F1 /* UserViewController.swift */; };
 		34C5411C1F3828780019D4C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5411B1F3828780019D4C2 /* AppDelegate.swift */; };
 		34C5411E1F3828780019D4C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5411D1F3828780019D4C2 /* ViewController.swift */; };
 		34C541231F3828780019D4C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34C541221F3828780019D4C2 /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 		3477654D1F38468E00B6B4F1 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		3477654F1F3846C300B6B4F1 /* SchedulerContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerContext.swift; sourceTree = "<group>"; };
 		347765511F3AB78800B6B4F1 /* PostsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsService.swift; sourceTree = "<group>"; };
+		347765531F3AC1E200B6B4F1 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		34C541181F3828780019D4C2 /* viewstate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = viewstate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34C5411B1F3828780019D4C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34C5411D1F3828780019D4C2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 			children = (
 				34C5411B1F3828780019D4C2 /* AppDelegate.swift */,
 				34C5411D1F3828780019D4C2 /* ViewController.swift */,
+				347765531F3AC1E200B6B4F1 /* UserViewController.swift */,
 				347765411F382BAA00B6B4F1 /* UserInteractor.swift */,
 				347765451F3836F100B6B4F1 /* ProfileInteractor.swift */,
 				347765431F3836E000B6B4F1 /* PostsInteractor.swift */,
@@ -258,6 +261,7 @@
 				347765421F382BAA00B6B4F1 /* UserInteractor.swift in Sources */,
 				347765521F3AB78800B6B4F1 /* PostsService.swift in Sources */,
 				34C5411C1F3828780019D4C2 /* AppDelegate.swift in Sources */,
+				347765541F3AC1E200B6B4F1 /* UserViewController.swift in Sources */,
 				3477654A1F38373D00B6B4F1 /* PostsViewModel.swift in Sources */,
 				347765401F382B7600B6B4F1 /* Model.swift in Sources */,
 				347765481F38373400B6B4F1 /* ProfileViewModel.swift in Sources */,
