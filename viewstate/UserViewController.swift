@@ -45,6 +45,12 @@ class UserViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
+        
+        interactor.viewModel.producer
+            .skipRepeats()
+            .startWithValues { [weak self] _ in
+                self?.tableView.reloadData()
+            }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,20 +77,33 @@ extension UserViewController: UITableViewDataSource {
         switch cellViewModelType {
         case .profileHeader(let cellViewModel):
             cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
+            cell.textLabel?.attributedText = cellViewModel.username.text
+            cell.detailTextLabel?.attributedText = cellViewModel.friendsCount.text
         case .profileError(let cellViewModel):
             cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
+            cell.textLabel?.text = cellViewModel.message
+            cell.detailTextLabel?.text = cellViewModel.actionTitle
         case .profileAttribute(let cellViewModel):
             cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
+            cell.textLabel?.text = cellViewModel.value
+            cell.detailTextLabel?.text = cellViewModel.name
         case .contentHeader(let cellViewModel):
             cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
+            cell.textLabel?.text = cellViewModel
         case .contentLoading:
             cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
+            cell.textLabel?.text = "Loading..."
         case .contentEmpty(let cellViewModel):
             cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
+            cell.textLabel?.text = cellViewModel
         case .contentError(let cellViewModel):
             cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
+            cell.textLabel?.text = cellViewModel.message
+            cell.detailTextLabel?.text = cellViewModel.actionTitle
         case .post(let cellViewModel):
             cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
+            cell.textLabel?.text = cellViewModel.body
+            cell.detailTextLabel?.text = cellViewModel.date
         }
         
         return cell
