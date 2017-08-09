@@ -31,6 +31,8 @@ class UserViewController: UIViewController {
         self.interactor = interactor
         
         super.init(nibName: nil, bundle: nil)
+        
+        title = "Profile"
     }
     
     required init?(coder aDecoder: NSCoder) {
