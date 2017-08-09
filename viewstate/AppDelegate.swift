@@ -13,10 +13,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        let rootViewController = UIViewController()
+        let profileService = ProfileService()
+        let postsService = PostsService()
+        let userInteractor = UserInteractor(userId: 0, profileService: profileService, postsService: postsService)
+        let userViewController = UserViewController(interactor: userInteractor)
+        let rootViewController = UINavigationController(rootViewController: userViewController)
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = rootViewController
