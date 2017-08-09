@@ -26,3 +26,20 @@ final class ProfileService: ProfileServiceType {
             .delay(3, on: QueueScheduler())
     }
 }
+
+final class ProfileErrorService: ProfileServiceType {
+    func readProfile(userId: Int) -> SignalProducer<User, NSError> {
+        let user = User(id: userId,
+                        avatarURL: URL(string: "https://en.gravatar.com/userimage/30721452/beb8f097031268cc19d5e6261603d419.jpeg")!,
+                        username: "twocentstudios",
+                        friendsCount: 100,
+                        location: "Chicago",
+                        website: URL(string: "twocentstudios.com")!)
+        let error = NSError(domain: "", code: 0, userInfo: nil)
+        return SignalProducer(value: user)
+            .delay(3, on: QueueScheduler())
+            .attempt { user in
+                return Result(error: error)
+            }
+    }
+}
