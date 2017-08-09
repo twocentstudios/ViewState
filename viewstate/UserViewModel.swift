@@ -63,9 +63,25 @@ struct UserViewModel {
     }
 }
 
+extension UserViewModel {
+    func numberOfRows(in section: Int) -> Int {
+        return viewModels.count
+    }
+    
+    func viewModel(at indexPath: IndexPath) -> ViewModelType? {
+        return viewModels[safe: indexPath.row]
+    }
+}
+
 extension UserViewModel: Equatable {
     static func == (lhs: UserViewModel, rhs: UserViewModel) -> Bool {
         return lhs.profileViewModel == rhs.profileViewModel &&
             lhs.postsViewModel == rhs.postsViewModel
+    }
+}
+
+extension Collection {
+    subscript (safe index: Index) -> Generator.Element? {
+        return indices.contains(index) ? self[index] : nil
     }
 }
