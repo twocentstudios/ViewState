@@ -10,14 +10,14 @@ import UIKit
 
 final class LoadingTextView: UIView {
     
-    let label: UILabel = {
+    private let label: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.numberOfLines = 1
         return view
     }()
     
-    let background: UIView = {
+    private let background: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = Color.gray20
@@ -57,7 +57,7 @@ final class LoadingTextView: UIView {
 
 final class ProfileHeaderCell: UITableViewCell {
     
-    let avatarImageView: UIImageView = {
+    private let avatarImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.masksToBounds = true
@@ -65,13 +65,13 @@ final class ProfileHeaderCell: UITableViewCell {
         return view
     }()
     
-    let usernameLabel: LoadingTextView = {
+    private let usernameLabel: LoadingTextView = {
         let view = LoadingTextView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let friendsCountLabel: LoadingTextView = {
+    private let friendsCountLabel: LoadingTextView = {
         let view = LoadingTextView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -79,6 +79,8 @@ final class ProfileHeaderCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        contentView.backgroundColor = Color.gray00
         
         let labelStackView = UIStackView(arrangedSubviews: [usernameLabel, friendsCountLabel])
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
