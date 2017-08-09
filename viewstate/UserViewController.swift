@@ -8,6 +8,7 @@
 
 import UIKit
 import ReactiveSwift
+import ReactiveCocoa
 import Result
 
 class UserViewController: UIViewController {
@@ -22,6 +23,7 @@ class UserViewController: UIViewController {
         tableView.estimatedRowHeight = UITableViewAutomaticDimension
         tableView.register(UITableViewCell.self)
         tableView.register(ProfileHeaderCell.self)
+        tableView.register(ErrorCell.self)
         return tableView
     }()
     
@@ -81,9 +83,14 @@ extension UserViewController: UITableViewDataSource {
             cell.configure(with: cellViewModel)
             returnCell = cell
         case .profileError(let cellViewModel):
-            returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
-            returnCell.textLabel?.text = cellViewModel.message
-            returnCell.detailTextLabel?.text = cellViewModel.actionTitle
+            let cell = tableView.dequeue(ErrorCell.self, for: indexPath)
+            cell.configure(with: cellViewModel)
+            cell.button.reactive.controlEvents(.touchUpInside)
+                .take(until: cell.reactive.prepareForReuse)
+                .observeValues({ [unowned self] _ in
+                    self.interactor.commandSink.send(value: .loadProfile)
+                })
+            returnCell = cell
         case .profileAttribute(let cellViewModel):
             returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
             returnCell.textLabel?.text = cellViewModel.value
