@@ -105,9 +105,14 @@ extension UserViewController: UITableViewDataSource {
             returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
             returnCell.textLabel?.text = cellViewModel
         case .contentError(let cellViewModel):
-            returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
-            returnCell.textLabel?.text = cellViewModel.message
-            returnCell.detailTextLabel?.text = cellViewModel.actionTitle
+            let cell = tableView.dequeue(ErrorCell.self, for: indexPath)
+            cell.configure(with: cellViewModel)
+            cell.button.reactive.controlEvents(.touchUpInside)
+                .take(until: cell.reactive.prepareForReuse)
+                .observeValues({ [unowned self] _ in
+                    self.interactor.commandSink.send(value: .loadPosts)
+                })
+            returnCell = cell
         case .post(let cellViewModel):
             returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
             returnCell.textLabel?.text = cellViewModel.body
