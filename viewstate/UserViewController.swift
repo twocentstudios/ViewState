@@ -20,7 +20,8 @@ class UserViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = UITableViewAutomaticDimension
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
+        tableView.register(UITableViewCell.self)
+        tableView.register(ProfileHeaderCell.self)
         return tableView
     }()
     
@@ -73,38 +74,52 @@ extension UserViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cellViewModelType = interactor.viewModel.value.viewModel(at: indexPath) else { fatalError() }
         
-        let cell: UITableViewCell
+        let returnCell: UITableViewCell
         switch cellViewModelType {
         case .profileHeader(let cellViewModel):
-            cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
-            cell.textLabel?.attributedText = cellViewModel.username.text
-            cell.detailTextLabel?.attributedText = cellViewModel.friendsCount.text
+            let cell = tableView.dequeue(ProfileHeaderCell.self, for: indexPath)
+            cell.configure(with: cellViewModel)
+            returnCell = cell
         case .profileError(let cellViewModel):
-            cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
-            cell.textLabel?.text = cellViewModel.message
-            cell.detailTextLabel?.text = cellViewModel.actionTitle
+            returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
+            returnCell.textLabel?.text = cellViewModel.message
+            returnCell.detailTextLabel?.text = cellViewModel.actionTitle
         case .profileAttribute(let cellViewModel):
-            cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
-            cell.textLabel?.text = cellViewModel.value
-            cell.detailTextLabel?.text = cellViewModel.name
+            returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
+            returnCell.textLabel?.text = cellViewModel.value
+            returnCell.detailTextLabel?.text = cellViewModel.name
         case .contentHeader(let cellViewModel):
-            cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
-            cell.textLabel?.text = cellViewModel
+            returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
+            returnCell.textLabel?.text = cellViewModel
         case .contentLoading:
-            cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
-            cell.textLabel?.text = "Loading..."
+            returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
+            returnCell.textLabel?.text = "Loading..."
         case .contentEmpty(let cellViewModel):
-            cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
-            cell.textLabel?.text = cellViewModel
+            returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
+            returnCell.textLabel?.text = cellViewModel
         case .contentError(let cellViewModel):
-            cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
-            cell.textLabel?.text = cellViewModel.message
-            cell.detailTextLabel?.text = cellViewModel.actionTitle
+            returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
+            returnCell.textLabel?.text = cellViewModel.message
+            returnCell.detailTextLabel?.text = cellViewModel.actionTitle
         case .post(let cellViewModel):
-            cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
-            cell.textLabel?.text = cellViewModel.body
-            cell.detailTextLabel?.text = cellViewModel.date
+            returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
+            returnCell.textLabel?.text = cellViewModel.body
+            returnCell.detailTextLabel?.text = cellViewModel.date
         }
+        
+        return returnCell
+    }
+}
+
+extension UITableView {
+    func register<T: UITableViewCell>(_: T.Type, reuseIdentifier: String? = nil) {
+        self.register(T.self, forCellReuseIdentifier: reuseIdentifier ?? String(describing: T.self))
+    }
+    
+    func dequeue<T: UITableViewCell>(_: T.Type, for indexPath: IndexPath) -> T {
+        guard let cell = dequeueReusableCell(withIdentifier: String(describing: T.self),
+                                             for: indexPath) as? T
+            else { fatalError("Could not deque cell with type \(T.self)") }
         
         return cell
     }

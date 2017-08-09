@@ -20,10 +20,25 @@
 		347765501F3846C300B6B4F1 /* SchedulerContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3477654F1F3846C300B6B4F1 /* SchedulerContext.swift */; };
 		347765521F3AB78800B6B4F1 /* PostsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347765511F3AB78800B6B4F1 /* PostsService.swift */; };
 		347765541F3AC1E200B6B4F1 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347765531F3AC1E200B6B4F1 /* UserViewController.swift */; };
+		34C0687D1F3AD023004C4F69 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C0687C1F3ACFAF004C4F69 /* Styles.swift */; };
 		34C5411C1F3828780019D4C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5411B1F3828780019D4C2 /* AppDelegate.swift */; };
 		34C541231F3828780019D4C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34C541221F3828780019D4C2 /* Assets.xcassets */; };
 		34C541261F3828780019D4C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34C541241F3828780019D4C2 /* LaunchScreen.storyboard */; };
+		34E5494B1F3AD7BC0058624C /* UserViewControllerCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E5494A1F3AD7BC0058624C /* UserViewControllerCells.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		34E549471F3AD7970058624C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3477653D1F382B5900B6B4F1 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -38,11 +53,13 @@
 		3477654F1F3846C300B6B4F1 /* SchedulerContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerContext.swift; sourceTree = "<group>"; };
 		347765511F3AB78800B6B4F1 /* PostsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsService.swift; sourceTree = "<group>"; };
 		347765531F3AC1E200B6B4F1 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		34C0687C1F3ACFAF004C4F69 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		34C541181F3828780019D4C2 /* viewstate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = viewstate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34C5411B1F3828780019D4C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34C541221F3828780019D4C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		34C541251F3828780019D4C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		34C541271F3828780019D4C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		34E5494A1F3AD7BC0058624C /* UserViewControllerCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewControllerCells.swift; sourceTree = "<group>"; };
 		9FEA37AD3A5E515833DC4CB9 /* Pods_viewstate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_viewstate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A57815EC4F48ED52809C9492 /* Pods-viewstate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-viewstate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-viewstate/Pods-viewstate.debug.xcconfig"; sourceTree = "<group>"; };
 		B80134563FCEC88737356BED /* Pods-viewstate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-viewstate.release.xcconfig"; path = "Pods/Target Support Files/Pods-viewstate/Pods-viewstate.release.xcconfig"; sourceTree = "<group>"; };
@@ -90,7 +107,9 @@
 			isa = PBXGroup;
 			children = (
 				34C5411B1F3828780019D4C2 /* AppDelegate.swift */,
+				34C0687C1F3ACFAF004C4F69 /* Styles.swift */,
 				347765531F3AC1E200B6B4F1 /* UserViewController.swift */,
+				34E5494A1F3AD7BC0058624C /* UserViewControllerCells.swift */,
 				347765411F382BAA00B6B4F1 /* UserInteractor.swift */,
 				347765451F3836F100B6B4F1 /* ProfileInteractor.swift */,
 				347765431F3836E000B6B4F1 /* PostsInteractor.swift */,
@@ -131,6 +150,7 @@
 				34C541161F3828780019D4C2 /* Resources */,
 				F180D74E668D6DA2A01C0343 /* [CP] Embed Pods Frameworks */,
 				6865374046AD5398DEE902B0 /* [CP] Copy Pods Resources */,
+				34E549471F3AD7970058624C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -252,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				347765441F3836E000B6B4F1 /* PostsInteractor.swift in Sources */,
+				34C0687D1F3AD023004C4F69 /* Styles.swift in Sources */,
 				3477653E1F382B5900B6B4F1 /* ViewModel.swift in Sources */,
 				3477654C1F38374500B6B4F1 /* UserViewModel.swift in Sources */,
 				347765421F382BAA00B6B4F1 /* UserInteractor.swift in Sources */,
@@ -264,6 +285,7 @@
 				347765501F3846C300B6B4F1 /* SchedulerContext.swift in Sources */,
 				347765461F3836F100B6B4F1 /* ProfileInteractor.swift in Sources */,
 				3477654E1F38468E00B6B4F1 /* ProfileService.swift in Sources */,
+				34E5494B1F3AD7BC0058624C /* UserViewControllerCells.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,7 +412,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A57815EC4F48ED52809C9492 /* Pods-viewstate.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = YK25EF78NT;
 				INFOPLIST_FILE = viewstate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -406,7 +430,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B80134563FCEC88737356BED /* Pods-viewstate.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = viewstate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
