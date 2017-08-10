@@ -26,6 +26,7 @@ class UserViewController: UIViewController {
         tableView.register(ErrorCell.self)
         tableView.register(ProfileAttributeCell.self)
         tableView.register(ContentHeaderCell.self)
+        tableView.register(ContentLoadingCell.self)
         return tableView
     }()
     
@@ -104,8 +105,8 @@ extension UserViewController: UITableViewDataSource {
             cell.configure(with: cellViewModel)
             returnCell = cell
         case .contentLoading:
-            returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
-            returnCell.textLabel?.text = "Loading..."
+            let cell = tableView.dequeue(ContentLoadingCell.self, for: indexPath)
+            returnCell = cell
         case .contentEmpty(let cellViewModel):
             returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
             returnCell.textLabel?.text = cellViewModel
