@@ -28,6 +28,7 @@ class UserViewController: UIViewController {
         tableView.register(ContentHeaderCell.self)
         tableView.register(ContentLoadingCell.self)
         tableView.register(ContentEmptyCell.self)
+        tableView.register(PostCell.self)
         return tableView
     }()
     
@@ -122,9 +123,9 @@ extension UserViewController: UITableViewDataSource {
                 })
             returnCell = cell
         case .post(let cellViewModel):
-            returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
-            returnCell.textLabel?.text = cellViewModel.body
-            returnCell.detailTextLabel?.text = cellViewModel.date
+            let cell = tableView.dequeue(PostCell.self, for: indexPath)
+            cell.configure(with: cellViewModel)
+            returnCell = cell
         }
         
         return returnCell
