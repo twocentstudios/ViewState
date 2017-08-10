@@ -131,6 +131,7 @@ final class ErrorCell: UITableViewCell {
     private let label: UILabel = {
         let view = UILabel()
         view.numberOfLines = 1
+        view.font = Font.style(.title3)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -138,6 +139,7 @@ final class ErrorCell: UITableViewCell {
     let button: UIButton = {
         let view = UIButton(type: .system)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.titleLabel?.font = Font.style(.title3)
         return view
     }()
     
@@ -180,6 +182,8 @@ final class ProfileAttributeCell: UITableViewCell {
         let view = UILabel()
         view.numberOfLines = 0
         view.textAlignment = .right
+        view.font = Font.style(.body)
+        view.textColor = Color.gray60
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -187,6 +191,7 @@ final class ProfileAttributeCell: UITableViewCell {
     private let valueLabel: UILabel = {
         let view = UILabel()
         view.numberOfLines = 0
+        view.font = Font.style(.headline)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -231,6 +236,8 @@ final class ContentHeaderCell: UITableViewCell {
     private let label: UILabel = {
         let view = UILabel()
         view.numberOfLines = 1
+        view.font = Font.style(.title2)
+        view.textColor = Color.gray75
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -311,6 +318,7 @@ final class ContentEmptyCell: UITableViewCell {
     private let label: UILabel = {
         let view = UILabel()
         view.numberOfLines = 0
+        view.font = Font.style(.title3)
         view.textAlignment = .center
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -352,6 +360,8 @@ final class PostCell: UITableViewCell {
     private let dateLabel: UILabel = {
         let view = UILabel()
         view.numberOfLines = 1
+        view.font = Font.style(.caption1)
+        view.textColor = Color.gray60
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -359,6 +369,7 @@ final class PostCell: UITableViewCell {
     private let bodyLabel: UILabel = {
         let view = UILabel()
         view.numberOfLines = 0
+        view.font = Font.style(.body)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

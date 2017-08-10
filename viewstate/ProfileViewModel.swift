@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct ProfileHeaderViewModel {
     let avatarURL: URL?
@@ -17,8 +18,8 @@ struct ProfileHeaderViewModel {
 extension ProfileHeaderViewModel {
     init(user: User) {
         self.avatarURL = user.avatarURL
-        self.username = LoadingTextViewModel(state: .loaded(NSAttributedString(string: user.username)))
-        self.friendsCount = LoadingTextViewModel(state: .loaded(NSAttributedString(string: String(user.friendsCount))))
+        self.username = LoadingTextViewModel(state: .loaded(NSAttributedString(string: user.username, attributes: [NSFontAttributeName: Font.style(.headline)])))
+        self.friendsCount = LoadingTextViewModel(state: .loaded(NSAttributedString(string: String(user.friendsCount), attributes: [NSFontAttributeName: Font.style(.subheadline)])))
     }
     
     static func initialized() -> ProfileHeaderViewModel {
