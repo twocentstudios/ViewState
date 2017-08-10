@@ -24,6 +24,7 @@ class UserViewController: UIViewController {
         tableView.register(UITableViewCell.self)
         tableView.register(ProfileHeaderCell.self)
         tableView.register(ErrorCell.self)
+        tableView.register(ProfileAttributeCell.self)
         return tableView
     }()
     
@@ -94,9 +95,9 @@ extension UserViewController: UITableViewDataSource {
                 })
             returnCell = cell
         case .profileAttribute(let cellViewModel):
-            returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
-            returnCell.textLabel?.text = cellViewModel.value
-            returnCell.detailTextLabel?.text = cellViewModel.name
+            let cell = tableView.dequeue(ProfileAttributeCell.self, for: indexPath)
+            cell.configure(with: cellViewModel)
+            returnCell = cell
         case .contentHeader(let cellViewModel):
             returnCell = tableView.dequeue(UITableViewCell.self, for: indexPath)
             returnCell.textLabel?.text = cellViewModel
