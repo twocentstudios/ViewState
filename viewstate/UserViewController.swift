@@ -19,9 +19,12 @@ class UserViewController: UIViewController {
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = Color.gray00
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = UITableViewAutomaticDimension
+        tableView.allowsSelection = false
+        tableView.separatorStyle = .none
         tableView.register(UITableViewCell.self)
         tableView.register(ProfileHeaderCell.self)
         tableView.register(ErrorCell.self)
