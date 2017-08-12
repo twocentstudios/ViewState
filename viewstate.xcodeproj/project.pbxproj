@@ -25,6 +25,7 @@
 		34C541231F3828780019D4C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34C541221F3828780019D4C2 /* Assets.xcassets */; };
 		34C541261F3828780019D4C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34C541241F3828780019D4C2 /* LaunchScreen.storyboard */; };
 		34E5494B1F3AD7BC0058624C /* UserViewControllerCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E5494A1F3AD7BC0058624C /* UserViewControllerCells.swift */; };
+		34E549531F3FBEFD0058624C /* UITableView+RegisterCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E549521F3FBEFD0058624C /* UITableView+RegisterCells.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,6 +61,7 @@
 		34C541251F3828780019D4C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		34C541271F3828780019D4C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		34E5494A1F3AD7BC0058624C /* UserViewControllerCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewControllerCells.swift; sourceTree = "<group>"; };
+		34E549521F3FBEFD0058624C /* UITableView+RegisterCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+RegisterCells.swift"; sourceTree = "<group>"; };
 		9FEA37AD3A5E515833DC4CB9 /* Pods_viewstate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_viewstate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A57815EC4F48ED52809C9492 /* Pods-viewstate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-viewstate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-viewstate/Pods-viewstate.debug.xcconfig"; sourceTree = "<group>"; };
 		B80134563FCEC88737356BED /* Pods-viewstate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-viewstate.release.xcconfig"; path = "Pods/Target Support Files/Pods-viewstate/Pods-viewstate.release.xcconfig"; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				3477654D1F38468E00B6B4F1 /* ProfileService.swift */,
 				347765511F3AB78800B6B4F1 /* PostsService.swift */,
 				3477654F1F3846C300B6B4F1 /* SchedulerContext.swift */,
+				34E549521F3FBEFD0058624C /* UITableView+RegisterCells.swift */,
 				34C541221F3828780019D4C2 /* Assets.xcassets */,
 				34C541241F3828780019D4C2 /* LaunchScreen.storyboard */,
 				34C541271F3828780019D4C2 /* Info.plist */,
@@ -287,6 +290,7 @@
 				347765501F3846C300B6B4F1 /* SchedulerContext.swift in Sources */,
 				347765461F3836F100B6B4F1 /* ProfileInteractor.swift in Sources */,
 				3477654E1F38468E00B6B4F1 /* ProfileService.swift in Sources */,
+				34E549531F3FBEFD0058624C /* UITableView+RegisterCells.swift in Sources */,
 				34E5494B1F3AD7BC0058624C /* UserViewControllerCells.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
