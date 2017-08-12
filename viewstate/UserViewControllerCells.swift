@@ -57,11 +57,14 @@ final class LoadingTextView: UIView {
 
 final class ProfileHeaderCell: UITableViewCell {
     
+    private static let avatarSide: CGFloat = 106
+    
     private let avatarImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.masksToBounds = true
         view.backgroundColor = Color.gray10
+        view.layer.cornerRadius = ceil(ProfileHeaderCell.avatarSide / 2.0)
         return view
     }()
     
@@ -99,7 +102,7 @@ final class ProfileHeaderCell: UITableViewCell {
         contentView.addSubview(stackView)
 
         NSLayoutConstraint.activate([
-            avatarImageView.widthAnchor.constraint(equalToConstant: 106),
+            avatarImageView.widthAnchor.constraint(equalToConstant: ProfileHeaderCell.avatarSide),
             avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
             
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -112,15 +115,10 @@ final class ProfileHeaderCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        avatarImageView.layer.cornerRadius = ceil(avatarImageView.bounds.width / 2.0)
-    }
-    
+
     func configure(with viewModel: ProfileHeaderViewModel) {
         // TODO: imageView url
+        avatarImageView.image = nil
         usernameLabel.configure(with: viewModel.username)
         friendsCountLabel.configure(with: viewModel.friendsCount)
     }
