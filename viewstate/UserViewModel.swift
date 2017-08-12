@@ -80,6 +80,22 @@ extension UserViewModel: Equatable {
     }
 }
 
+extension UserViewModel.ViewModelType: Equatable {
+    static func == (lhs: UserViewModel.ViewModelType, rhs: UserViewModel.ViewModelType) -> Bool {
+        switch (lhs, rhs) {
+        case let (.profileHeader(l), .profileHeader(r)): return l == r
+        case let (.profileError(l), .profileError(r)): return l == r
+        case let (.profileAttribute(l), .profileAttribute(r)): return l == r
+        case let (.contentHeader(l), .contentHeader(r)): return l == r
+        case (.contentLoading, .contentLoading): return true
+        case let (.contentEmpty(l), .contentEmpty(r)): return l == r
+        case let (.contentError(l), .contentError(r)): return l == r
+        case let (.post(l), .post(r)): return l == r
+        default: return false
+        }
+    }
+}
+
 extension Collection {
     subscript (safe index: Index) -> Iterator.Element? {
         return indices.contains(index) ? self[index] : nil

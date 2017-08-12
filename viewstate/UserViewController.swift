@@ -10,6 +10,7 @@ import UIKit
 import ReactiveSwift
 import ReactiveCocoa
 import Result
+import Diff
 
 class UserViewController: UIViewController {
     
@@ -58,9 +59,12 @@ class UserViewController: UIViewController {
         
         interactor.viewModel.producer
             .skipRepeats()
-            .startWithValues { [weak self] _ in
-                self?.tableView.reloadData()
-            }
+            .map { $0.viewModels }
+            .scan([], { [unowned self] (old, new) -> [UserViewModel.ViewModelType] in
+                self.tableView.animateRowChanges(oldData: old, newData: new, deletionAnimation: .fade, insertionAnimation: .fade)
+                return new
+            })
+            .start()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,7 +76,7 @@ class UserViewController: UIViewController {
 }
 
 extension UserViewController: UITableViewDelegate {
-    
+
 }
 
 extension UserViewController: UITableViewDataSource {

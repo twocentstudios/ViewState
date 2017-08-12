@@ -7,6 +7,7 @@ platform :ios, '10.3'
 def shared_pods
     pod 'ReactiveSwift', '2.0.0'
     pod 'ReactiveCocoa', '6.0.0'
+    pod 'Diff', '0.5.3'
 end
 
 target 'viewstate' do
