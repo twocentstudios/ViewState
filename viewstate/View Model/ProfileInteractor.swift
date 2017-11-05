@@ -71,17 +71,17 @@ final class ProfileInteractor {
         effect = effectSignal
     }
     
-    static func toCommand(_ command: Command) -> Reducer.Command {
+    static private func toCommand(_ command: Command) -> Reducer.Command {
         switch command {
         case .load: return .load
         }
     }
     
-    static func toEffect(_ effect: Reducer.Effect) -> Effect? {
+    static private func toEffect(_ effect: Reducer.Effect) -> Effect? {
         return nil
     }
     
-    static func toSignalProducer(effect: Reducer.Effect, userId: Int, service: ProfileServiceType) -> SignalProducer<Reducer.Command, NoError> {
+    static private func toSignalProducer(effect: Reducer.Effect, userId: Int, service: ProfileServiceType) -> SignalProducer<Reducer.Command, NoError> {
         switch effect {
         case .load:
             return service.readProfile(userId: userId)

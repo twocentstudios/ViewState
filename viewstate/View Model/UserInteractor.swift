@@ -50,11 +50,11 @@ final class UserInteractor {
             ])
     }
     
-    static func toEffect(_ effect: ProfileInteractor.Effect) -> Effect? {
+    static private func toEffect(_ effect: ProfileInteractor.Effect) -> Effect? {
         return nil
     }
     
-    static func toEffect(_ effect: PostsInteractor.Effect) -> Effect? {
+    static private func toEffect(_ effect: PostsInteractor.Effect) -> Effect? {
         return nil
     }
 }
