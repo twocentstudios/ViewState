@@ -64,6 +64,94 @@ class ProfileInteractorTests: XCTestCase {
         effect.assertValueCount(0)
         effect.assertDidNotComplete()
     }
+    
+    func testInitializedLoadFailure() {
+        let schedulerContext = TestSchedulerContext()
+        
+        let interactor = ProfileInteractor(userId: user.id, service: Mocks.ProfileService(error), scheduler: schedulerContext)
+        
+        let effect: TestObserver<Effect, NoError> = TestObserver()
+        interactor.effect.observe(effect.observer)
+        
+        let command = Command.load
+        
+        let loadingViewModel = ProfileViewModel(state: .loading)
+        let failedViewModel = ProfileViewModel(state: .failed(error))
+        
+        interactor.commandSink.send(value: command)
+        
+        schedulerContext.nextOutput()
+        
+        let loadingResult = interactor.viewModel.value
+        
+        XCTAssertEqual(loadingViewModel, loadingResult)
+        effect.assertValueCount(0)
+        effect.assertDidNotComplete()
+        
+        schedulerContext.doWork()
+        schedulerContext.nextOutput()
+        
+        let failedResult = interactor.viewModel.value
+        
+        XCTAssertEqual(failedViewModel, failedResult)
+        effect.assertValueCount(0)
+        effect.assertDidNotComplete()
+    }
+    
+    func testFailureThenSuccess() {
+        let schedulerContext = TestSchedulerContext()
+        
+        let profileService = Mocks.ProfileService(error)
+        let interactor = ProfileInteractor(userId: user.id, service: profileService, scheduler: schedulerContext)
+        
+        let effect: TestObserver<Effect, NoError> = TestObserver()
+        interactor.effect.observe(effect.observer)
+        
+        let command = Command.load
+        
+        let loadingViewModel = ProfileViewModel(state: .loading)
+        let failedViewModel = ProfileViewModel(state: .failed(error))
+        let loadedViewModel = ProfileViewModel(state: .loaded(user))
+
+        interactor.commandSink.send(value: command)
+        
+        schedulerContext.nextOutput()
+        
+        let loadingResult = interactor.viewModel.value
+        
+        XCTAssertEqual(loadingViewModel, loadingResult)
+        effect.assertValueCount(0)
+        effect.assertDidNotComplete()
+        
+        schedulerContext.doWork()
+        schedulerContext.nextOutput()
+        
+        let failedResult = interactor.viewModel.value
+        
+        XCTAssertEqual(failedViewModel, failedResult)
+        effect.assertValueCount(0)
+        effect.assertDidNotComplete()
+        
+        profileService.setUser(user)
+        interactor.commandSink.send(value: command)
+        
+        schedulerContext.nextOutput()
+        
+        let loadingAgainResult = interactor.viewModel.value
+
+        XCTAssertEqual(loadingViewModel, loadingAgainResult)
+        effect.assertValueCount(0)
+        effect.assertDidNotComplete()
+        
+        schedulerContext.doWork()
+        schedulerContext.nextOutput()
+        
+        let loadedResult = interactor.viewModel.value
+        
+        XCTAssertEqual(loadedViewModel, loadedResult)
+        effect.assertValueCount(0)
+        effect.assertDidNotComplete()
+    }
 }
 
 class ProfileInteractorReducerTests: XCTestCase {

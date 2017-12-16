@@ -24,14 +24,22 @@ enum Mocks {
     
     final class ProfileService: ProfileServiceType {
         
-        let result: Result<User, NSError>
+        private var result: Result<User, NSError>
         
         init(_ user: User) {
-            self.result = Result(value: user)
+            result = Result(value: user)
         }
         
         init(_ error: NSError) {
-            self.result = Result(error: error)
+            result = Result(error: error)
+        }
+        
+        func setUser(_ user: User) {
+            result = Result(value: user)
+        }
+        
+        func setError(_ error: NSError) {
+            result = Result(error: error)
         }
         
         func readProfile(userId: Int) -> SignalProducer<User, NSError> {
