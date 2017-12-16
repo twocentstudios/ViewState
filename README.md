@@ -11,8 +11,10 @@ Explained in detail in the blog post series:
 
 ## Preview
 
-* [Normal Load](http://twocentstudios.com/images/view_controller_with_interactor-normal_load.mov)
-* [Failure case](http://twocentstudios.com/images/view_controller_with_interactor-failed.mov)
+![](http://twocentstudios.com/images/modeling_view_state-06.png)
+
+* [Normal Load (video)](http://twocentstudios.com/images/view_controller_with_interactor-normal_load.mov)
+* [Failure case (video)](http://twocentstudios.com/images/view_controller_with_interactor-failed.mov)
 
 ## Getting started
 
