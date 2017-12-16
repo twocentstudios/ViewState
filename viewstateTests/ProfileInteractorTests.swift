@@ -7,9 +7,66 @@
 //
 
 import XCTest
+import Foundation
+import ReactiveSwift
+import Result
 @testable import viewstate
 
 class ProfileInteractorTests: XCTestCase {
+
+    typealias Command = ProfileInteractor.Command
+    typealias Effect = ProfileInteractor.Effect
+    
+    let user = Mocks.user
+    let error = Mocks.error
+    
+    func testInitialState() {
+        let schedulerContext = TestSchedulerContext()
+        
+        let interactor = ProfileInteractor(userId: 0, service: Mocks.ProfileService(user), scheduler: schedulerContext)
+        
+        let targetViewModel = ProfileViewModel(state: .initialized)
+        
+        let result = interactor.viewModel.value
+        
+        XCTAssertEqual(targetViewModel, result)
+    }
+    
+    func testInitializedLoad() {
+        let schedulerContext = TestSchedulerContext()
+        
+        let interactor = ProfileInteractor(userId: 0, service: Mocks.ProfileService(user), scheduler: schedulerContext)
+        
+        let effect: TestObserver<Effect, NoError> = TestObserver()
+        interactor.effect.observe(effect.observer)
+        
+        let command = Command.load
+        
+        let loadingViewModel = ProfileViewModel(state: .loading)
+        let loadedViewModel = ProfileViewModel(state: .loaded(user))
+        
+        interactor.commandSink.send(value: command)
+        
+        schedulerContext.nextOutput()
+        
+        let loadingResult = interactor.viewModel.value
+        
+        XCTAssertEqual(loadingViewModel, loadingResult)
+        effect.assertValueCount(0)
+        effect.assertDidNotComplete()
+        
+        schedulerContext.doWork()
+        schedulerContext.nextOutput()
+        
+        let loadedResult = interactor.viewModel.value
+        
+        XCTAssertEqual(loadedViewModel, loadedResult)
+        effect.assertValueCount(0)
+        effect.assertDidNotComplete()
+    }
+}
+
+class ProfileInteractorReducerTests: XCTestCase {
     
     typealias Reducer = ProfileInteractor.Reducer
     
@@ -62,7 +119,6 @@ class ProfileInteractorTests: XCTestCase {
     }
     
     func testFailedLoad() {
-        
         let initialViewModel = ProfileViewModel(state: .failed(error))
         let initialState = Reducer.State(viewModel: initialViewModel, effect: nil)
         
@@ -78,7 +134,6 @@ class ProfileInteractorTests: XCTestCase {
     }
     
     func testLoadedLoad() {
-        
         let initialViewModel = ProfileViewModel(state: .loaded(user))
         let initialState = Reducer.State(viewModel: initialViewModel, effect: nil)
         
@@ -93,3 +148,4 @@ class ProfileInteractorTests: XCTestCase {
         XCTAssertEqual(targetState, result)
     }
 }
+
