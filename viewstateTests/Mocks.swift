@@ -17,4 +17,6 @@ enum Mocks {
                            friendsCount: 100,
                            location: "Chicago",
                            website: URL(string: "twocentstudios.com")!)
+    
+    static let error = NSError(domain: "", code: 0, userInfo: nil)
 }
