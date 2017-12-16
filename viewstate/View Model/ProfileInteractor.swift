@@ -26,7 +26,7 @@ final class ProfileInteractor {
     let userId: Int
     let service: ProfileServiceType
     
-    init(userId: Int, service: ProfileServiceType, scheduler: SchedulerContext = SchedulerContext()) {
+    init(userId: Int, service: ProfileServiceType, scheduler: SchedulerContextType = SchedulerContext.interactor()) {
         self.userId = userId
         self.service = service
         

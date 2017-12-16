@@ -26,7 +26,7 @@ final class PostsInteractor {
     let userId: Int
     let service: PostsServiceType
     
-    init(userId: Int, service: PostsServiceType, scheduler: SchedulerContext = SchedulerContext()) {
+    init(userId: Int, service: PostsServiceType, scheduler: SchedulerContextType = SchedulerContext.interactor()) {
         self.userId = userId
         self.service = service
         
