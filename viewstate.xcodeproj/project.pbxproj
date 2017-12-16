@@ -252,6 +252,7 @@
 					34C541171F3828780019D4C2 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = YK25EF78NT;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -512,7 +513,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "390d7585-fe76-45ae-b963-5efc3c12fcba";
 				PROVISIONING_PROFILE_SPECIFIER = "Wildcard Development Profile";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -529,7 +531,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.twocentstudios.viewstate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
