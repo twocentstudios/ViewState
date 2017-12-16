@@ -32,7 +32,7 @@ class ProfileInteractorTests: XCTestCase {
         XCTAssertEqual(targetViewModel, result)
     }
     
-    func testInitializedLoad() {
+    func testInitializedLoadSuccess() {
         let schedulerContext = TestSchedulerContext()
         
         let interactor = ProfileInteractor(userId: user.id, service: Mocks.ProfileService(user), scheduler: schedulerContext)
