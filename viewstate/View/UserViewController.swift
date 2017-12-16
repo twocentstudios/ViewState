@@ -25,7 +25,6 @@ class UserViewController: UIViewController {
         tableView.estimatedRowHeight = UITableViewAutomaticDimension
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
-        tableView.register(UITableViewCell.self)
         tableView.register(ProfileHeaderCell.self)
         tableView.register(ErrorCell.self)
         tableView.register(ProfileAttributeCell.self)
