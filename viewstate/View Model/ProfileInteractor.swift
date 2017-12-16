@@ -107,9 +107,14 @@ extension ProfileInteractor {
             case load
         }
         
-        struct State {
+        struct State: Equatable {
             let viewModel: ProfileViewModel
             let effect: Effect?
+            
+            static func ==(lhs: ProfileInteractor.Reducer.State, rhs: ProfileInteractor.Reducer.State) -> Bool {
+                return lhs.viewModel == rhs.viewModel &&
+                    lhs.effect == rhs.effect
+            }
         }
         
         static func reduce(state: State, command: Command) -> State {
