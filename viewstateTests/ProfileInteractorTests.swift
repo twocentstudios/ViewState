@@ -23,7 +23,7 @@ class ProfileInteractorTests: XCTestCase {
     func testInitialState() {
         let schedulerContext = TestSchedulerContext()
         
-        let interactor = ProfileInteractor(userId: 0, service: Mocks.ProfileService(user), scheduler: schedulerContext)
+        let interactor = ProfileInteractor(userId: user.id, service: Mocks.ProfileService(user), scheduler: schedulerContext)
         
         let targetViewModel = ProfileViewModel(state: .initialized)
         
@@ -35,7 +35,7 @@ class ProfileInteractorTests: XCTestCase {
     func testInitializedLoad() {
         let schedulerContext = TestSchedulerContext()
         
-        let interactor = ProfileInteractor(userId: 0, service: Mocks.ProfileService(user), scheduler: schedulerContext)
+        let interactor = ProfileInteractor(userId: user.id, service: Mocks.ProfileService(user), scheduler: schedulerContext)
         
         let effect: TestObserver<Effect, NoError> = TestObserver()
         interactor.effect.observe(effect.observer)
