@@ -11,15 +11,17 @@ import XCTest
 
 class ProfileInteractorTests: XCTestCase {
     
-    func testInitializeToLoad() {
+    typealias Reducer = ProfileInteractor.Reducer
+    
+    func testInitializeLoad() {
         let initialViewModel = ProfileViewModel(state: .initialized)
-        let initialState = ProfileInteractor.Reducer.State(viewModel: initialViewModel, effect: nil)
+        let initialState = Reducer.State(viewModel: initialViewModel, effect: nil)
         
-        let command = ProfileInteractor.Reducer.Command.load
+        let command = Reducer.Command.load
         
         let targetViewModel = ProfileViewModel(state: .loading)
-        let targetEffect = ProfileInteractor.Reducer.Effect.load
-        let targetState = ProfileInteractor.Reducer.State(viewModel: targetViewModel, effect: targetEffect)
+        let targetEffect = Reducer.Effect.load
+        let targetState = Reducer.State(viewModel: targetViewModel, effect: targetEffect)
         
         let result = ProfileInteractor.Reducer.reduce(state: initialState, command: command)
         
