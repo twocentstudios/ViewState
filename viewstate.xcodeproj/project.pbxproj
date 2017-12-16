@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		19ED57A3BD6E2416395F30F6 /* Pods_viewstate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FEA37AD3A5E515833DC4CB9 /* Pods_viewstate.framework */; };
+		347449411FE5590700335CF5 /* TestObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347449401FE5590700335CF5 /* TestObserver.swift */; };
 		347765421F382BAA00B6B4F1 /* UserInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347765411F382BAA00B6B4F1 /* UserInteractor.swift */; };
 		347765441F3836E000B6B4F1 /* PostsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347765431F3836E000B6B4F1 /* PostsInteractor.swift */; };
 		347765461F3836F100B6B4F1 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347765451F3836F100B6B4F1 /* ProfileInteractor.swift */; };
@@ -141,6 +142,7 @@
 				34B34E7A1FE50CE000AC3C73 /* Info.plist */,
 				34B34E801FE515C100AC3C73 /* ProfileInteractorTests.swift */,
 				34B34E821FE5196F00AC3C73 /* Mocks.swift */,
+				347449401FE5590700335CF5 /* TestObserver.swift */,
 			);
 			path = viewstateTests;
 			sourceTree = "<group>";
@@ -490,6 +492,7 @@
 			files = (
 				34B34E811FE515C100AC3C73 /* ProfileInteractorTests.swift in Sources */,
 				34B34E831FE5196F00AC3C73 /* Mocks.swift in Sources */,
+				347449411FE5590700335CF5 /* TestObserver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
