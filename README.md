@@ -11,9 +11,8 @@ Explained in detail in the blog post series:
 
 ## Preview
 
-<video src="/images/view_controller_with_interactor-normal_load.mov" controls preload="none" poster="/images/view_controller_with_interactor-normal_load-poster.png" height="600"></video>
-
-<video src="/images/view_controller_with_interactor-failed.mov" controls preload="none" poster="/images/view_controller_with_interactor-failed-poster.png" height="600"></video>
+<video src="http://twocentstudios.com/images/view_controller_with_interactor-normal_load.mov" controls preload="none" poster="http://twocentstudios.com/images/view_controller_with_interactor-normal_load-poster.png" height="600"></video>
+<video src="http://twocentstudios.com/images/view_controller_with_interactor-failed.mov" controls preload="none" poster="http://twocentstudios.com/images/view_controller_with_interactor-failed-poster.png" height="600"></video>
 
 ## Getting started
 
