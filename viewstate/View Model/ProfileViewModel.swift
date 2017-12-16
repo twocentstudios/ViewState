@@ -18,8 +18,8 @@ struct ProfileHeaderViewModel {
 extension ProfileHeaderViewModel {
     init(user: User) {
         self.avatarURL = user.avatarURL
-        self.username = LoadingTextViewModel(state: .loaded(NSAttributedString(string: user.username, attributes: [NSFontAttributeName: Font.style(.headline)])))
-        self.friendsCount = LoadingTextViewModel(state: .loaded(NSAttributedString(string: String(user.friendsCount), attributes: [NSFontAttributeName: Font.style(.subheadline)])))
+        self.username = LoadingTextViewModel(state: .loaded(NSAttributedString(string: user.username, attributes: [NSAttributedStringKey.font: Font.style(.headline)])))
+        self.friendsCount = LoadingTextViewModel(state: .loaded(NSAttributedString(string: String(user.friendsCount), attributes: [NSAttributedStringKey.font: Font.style(.subheadline)])))
     }
     
     static func initialized() -> ProfileHeaderViewModel {

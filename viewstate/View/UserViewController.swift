@@ -10,7 +10,7 @@ import UIKit
 import ReactiveSwift
 import ReactiveCocoa
 import Result
-import Diff
+import Differ
 
 class UserViewController: UIViewController {
     
