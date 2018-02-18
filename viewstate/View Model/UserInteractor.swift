@@ -26,7 +26,7 @@ final class UserInteractor {
     
     let userId: Int
     
-    init(userId: Int, profileService: ProfileServiceType, postsService: PostsServiceType, scheduler: SchedulerContext = SchedulerContext()) {
+    init(userId: Int, profileService: ProfileServiceType, postsService: PostsServiceType, scheduler: SchedulerContextType = SchedulerContext.interactor()) {
         self.userId = userId
         
         (self.commandSignal, self.commandSink) = Signal<Command, NoError>.pipe()

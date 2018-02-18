@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, '10.3'
 
-# inhibit_all_warnings!
+inhibit_all_warnings!
 
 def shared_pods
     pod 'ReactiveSwift', '3.0.0'
@@ -11,6 +11,11 @@ def shared_pods
 end
 
 target 'viewstate' do
+    use_frameworks!
+    shared_pods
+end
+
+target 'viewstateTests' do
     use_frameworks!
     shared_pods
 end

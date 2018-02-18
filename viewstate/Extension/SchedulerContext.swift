@@ -9,14 +9,18 @@
 import Foundation
 import ReactiveSwift
 
-struct SchedulerContext {
+protocol SchedulerContextType {
+    var state: Scheduler { get }
+    var work: Scheduler { get }
+    var output: Scheduler { get }
+}
+
+struct SchedulerContext: SchedulerContextType {
     let state: Scheduler
     let work: Scheduler
     let output: Scheduler
     
-    init(state: Scheduler = QueueScheduler(), work: Scheduler = QueueScheduler(), output: Scheduler = UIScheduler()) {
-        self.state = state
-        self.work = work
-        self.output = output
+    static func interactor() -> SchedulerContext {
+        return SchedulerContext(state: QueueScheduler(), work: QueueScheduler(), output: UIScheduler())
     }
 }
